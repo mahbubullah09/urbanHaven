@@ -104,11 +104,11 @@ const Navbar = () => {
             </div>
             <div
               tabIndex={0}
-              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-yellow-600 text-black shadow"
             >
               <div className="text-center flex flex-col">
                 <span className="font-bold text-lg">{cart?.length} Items</span>
-                <span className="text-black font-medium">
+                <span className=" font-medium">
                   Subtotal: ${total}
                 </span>
               </div>
@@ -120,13 +120,13 @@ const Navbar = () => {
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-10 rounded-full">
+              <div className="w-10 rounded-full border ">
                 <img src={User?.image} />
               </div>
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 border  rounded-box w-52"
             >
               <li>
                 <p className="justify-between">
