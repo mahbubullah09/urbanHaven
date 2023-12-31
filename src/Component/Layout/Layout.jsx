@@ -4,7 +4,7 @@ import Navbar from "../Nav/Navbar";
 
 const Layout = () => {
     return (
-        <div>
+        <div  className="max-w-6xl mx-auto">
             <Navbar/>
             <Outlet/>
             
