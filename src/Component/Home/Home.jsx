@@ -1,13 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { data } from "autoprefixer";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import  {  useContext, useEffect, useState } from "react";
 import ProductCard from "../products/ProductCard";
+
 
 const Home = () => {
 
+   
     const [search, setSearch] = useState("");
     const [product, setProducts] = useState(null)
+
+    useEffect(() => {
+
+        const user = JSON.parse(sessionStorage.getItem('User'))
+        console.log(user);
+    },[])
+    
 
   const { data = [] } = useQuery({
     queryKey: ["products", search ? search : ""],
@@ -55,6 +64,8 @@ const Home = () => {
       return y - x;
     });
   };
+//   console.log(username);
+
 
   return (
     <div>

@@ -1,8 +1,14 @@
-import React from "react";
+
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
+
+
 
 const Login = () => {
+    useEffect(()=>{
+        sessionStorage.clear();
+            },[]);
     const navigate = useNavigate();
 
     const handleLogIn = (e) => {
@@ -24,9 +30,10 @@ const Login = () => {
   })
 })
 .then(res => res.json())
-.then(result => {
-    if(result.username)
+.then(result => { console.log(result);
+    if(result.token)
         {
+            sessionStorage.setItem('User',JSON.stringify(result));
             navigate(location.state ? location.state : '/')
             toast.success('Successfully login')
     }
@@ -36,7 +43,6 @@ const Login = () => {
 
 
 }
-
 
     
   return (
