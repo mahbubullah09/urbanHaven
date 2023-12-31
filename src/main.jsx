@@ -5,6 +5,8 @@ import "./index.css";
 import Layout from "./Component/Layout/Layout";
 import Home from "./Component/Home/Home";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Login from "./Component/Authentication/Login";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient()
 
@@ -20,6 +22,11 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:'login',
+    element: <Login/>
+    
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -27,5 +34,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
        <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
     </QueryClientProvider>
+    <Toaster/>
   </React.StrictMode>
 );

@@ -4,7 +4,7 @@ const Navbar = () => {
         <div>
             <div className="navbar bg-base-100">
   <div className="flex-1">
-    <a className=" text-4xl text-yellow-600 font-bold">urban<span className="text-black">Haven</span></a>
+    <p className=" text-4xl text-yellow-600 font-bold">urban<span className="text-black">Haven</span></p>
   </div>
   <div className="flex-none">
     <div className="dropdown dropdown-end">
