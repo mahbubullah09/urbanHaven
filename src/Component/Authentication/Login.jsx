@@ -37,7 +37,7 @@ const Login = () => {
             navigate(location.state ? location.state : '/')
             toast.success('Successfully login')
     }
-   toast.error('Invalid username or password')
+   else toast.error('Invalid username or password')
 });  
     
 
@@ -57,19 +57,19 @@ const Login = () => {
                 </p>
               </div>
             </div>
-            <form onClick={handleLogIn} >
+            <form onSubmit={handleLogIn} >
               <div className="mb-4 text-lg">
                 <input
-                  className="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2  text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
+                  className="rounded-3xl border-none focus:bg-white focus:text-black bg-yellow-400 bg-opacity-50 px-6 py-2  text-inherit placeholder-slate-300 shadow-lg outline-none backdrop-blur-md"
                   type="text"
                   name="email"
-                  placeholder="Email"
+                  placeholder="User Name"
                 />
               </div>
 
               <div className="mb-4 text-lg">
                 <input
-                  className="rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2  text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
+                  className="rounded-3xl border-none focus:bg-white focus:text-black bg-yellow-400 bg-opacity-50 px-6 py-2  text-inherit placeholder-slate-300 shadow-lg outline-none backdrop-blur-md"
                   type="Password"
                   name="password"
                   placeholder="Password"
