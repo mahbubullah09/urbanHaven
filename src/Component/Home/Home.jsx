@@ -1,32 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import { data } from "autoprefixer";
 import axios from "axios";
-import  {  useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProductCard from "../products/ProductCard";
-
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const Home = () => {
+  const [search, setSearch] = useState("");
+  const [product, setProducts] = useState(null);
+  const [User, setUser] = useState();
+  const [show, setShow] = useState(false);
 
-   
-    const [search, setSearch] = useState("");
-    const [product, setProducts] = useState(null)
-    const [User,setUser] = useState();
+  useEffect(() => {
+    const user = JSON.parse(sessionStorage.getItem("User"));
+    setUser(user);
+  }, []);
 
-
-
-    useEffect(() => {
-
-       const  user = JSON.parse(sessionStorage.getItem('User'))
-        setUser(user);
-    },[])
-
-    console.log(User);
-    
+  console.log(User);
 
   const { data = [] } = useQuery({
     queryKey: ["products", search ? search : ""],
     queryFn: async () => {
-      const res = await axios.get(`https://dummyjson.com/products/search?q=${search}`);
+      const res = await axios.get(
+        `https://dummyjson.com/products/search?q=${search}`
+      );
       return res.data.products;
     },
   });
@@ -37,15 +34,12 @@ const Home = () => {
     setSearch(value);
   };
 
-
   const [sort, setSort] = useState("Default");
   const [defaltData, setDefaultData] = useState(data);
 
   const selectDefault = () => {
     setSort("Default");
-    selectDefault(data)
-    
-
+    selectDefault(data);
   };
 
   const selectLow = () => {
@@ -68,15 +62,18 @@ const Home = () => {
 
       return y - x;
     });
-  };
-//   console.log(username);
 
+  
+  };
+
+  const handleShow = () => {
+    setShow(!show);
+  };
+  console.log(show);
 
   return (
     <div>
-
-<div className="max-w-6xl mx-auto flex justify-center items-center">
-        
+      <div className="max-w-6xl mx-auto flex justify-center items-center">
         <form onSubmit={handleSearch}>
           <input
             id="searchValue"
@@ -91,41 +88,60 @@ const Home = () => {
         </form>
       </div>
       <p className="flex max-w-[16rem]  justify-evenly items-center mx-4 bg-[#ffcf00] py-2 px-4 rounded-full my-4">
-          <p className="text-xl">Filter By</p>
-          <div className="dropdown ">
-            <label tabIndex={0} className="btn m-1">
-              {sort}
-            </label>
-            <ul
-              tabIndex={0}
-              className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52"
-            >
-              <li onClick={selectDefault}>
-                <a>Default</a>
-              </li>
-              <li onClick={selectLow}>
-                <a>Low to high</a>
-              </li>
-              <li onClick={selectHigh}>
-                <a>High to low</a>
-              </li>
-            </ul>
-          </div>
-        </p>
-   <div className="grid grid-cols-1 min-[320]:mx-2 max-[325]:mx-4  md:grid-cols-2 lg:grid-cols-3 gap-8">
-   {
-    // sort === "Default"
-    // ? defaltData.map((data, idx) => (
-    //     <ProductCard key={idx} data={data} />
-    //   ))
-    //   :
-   
-   data?.map((data, idx) => (
-        <ProductCard key={idx} data={data} setProducts={setProducts} />
-      ))}
-   </div>
-   
-   <dialog id="my_modal_4" className="modal">
+        <p className="text-xl">Filter By</p>
+        <div className="dropdown ">
+          <label tabIndex={0} className="btn m-1">
+            {sort}
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52"
+          >
+            <li onClick={selectDefault}>
+              <a>Default</a>
+            </li>
+            <li onClick={selectLow}>
+              <a>Low to high</a>
+            </li>
+            <li onClick={selectHigh}>
+              <a>High to low</a>
+            </li>
+          </ul>
+        </div>
+      </p>
+      <div className="grid grid-cols-1 min-[320]:mx-2 max-[325]:mx-4  md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          // sort === "Default"
+          // ? defaltData.map((data, idx) => (
+          //     <ProductCard key={idx} data={data} />
+          //   ))
+          //   :
+
+          !show?
+
+          data?.slice(0,9).map((data, idx) => (
+            <ProductCard key={idx} data={data} setProducts={setProducts} />
+          ))
+          :
+          data?.map((data, idx) => (
+            <ProductCard key={idx} data={data} setProducts={setProducts} />
+          ))
+        }
+      </div>
+
+    <div className="mx-auto text-center">
+    <button className="bg-[#0D6EFD] text-white text-sm font-semibold px-4 py-2 rounded-lg" onClick={handleShow}>
+
+{
+    !show?
+    <p className="flex justify-center gap-1 items-center">Show all <FaChevronDown /></p>
+    :
+    <p className="flex justify-center gap-1 items-center">Show less <FaChevronUp /></p>
+}
+</button>
+    </div>
+
+      <dialog id="my_modal_4" className="modal">
         <div className="modal-box w-11/12 max-w-2xl">
           <div className="grid place-content-center">
             <img src={product?.thumbnail} alt="" />
