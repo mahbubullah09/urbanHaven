@@ -2,7 +2,11 @@
 import ReactStars from "react-rating-stars-component";
 import { TbListDetails } from "react-icons/tb";
 import { FaCartPlus } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const ProductCard = ({ data, setProducts }) => {
   const firstExample = {
@@ -11,14 +15,61 @@ const ProductCard = ({ data, setProducts }) => {
     edit: false,
     isHalf: true,
   };
-// const [open, setOpen] = useState(false)
 
-//   const handleModal = (info) =>{
-//     document.getElementById("my_modal_4").showModal()
-//     // setOpen(true);
-//     setProducts(info)
+  const [User,setUser] = useState();
 
-//   }
+
+
+  useEffect(() => {
+
+     const  user = JSON.parse(sessionStorage.getItem('User'))
+      setUser(user);
+  },[])
+
+  console.log(User);
+
+
+  const handleCart = () =>{
+    const cartItemArray = [];
+    const cartItem= JSON.parse(localStorage.getItem('cart'));
+    
+  
+    if (!cartItem){
+        cartItemArray.push((data))
+        localStorage.setItem('cart', JSON.stringify(cartItemArray))
+        toast.success('successfully added')
+    }
+   
+    else{
+
+        const isExist = cartItem.find(item => item.id ===data?.id);
+        
+        if(!isExist){
+            cartItemArray.push(...cartItem, data)
+            localStorage.setItem('cart', JSON.stringify(cartItemArray))
+           toast.success('successfully added')
+
+        }
+        else{
+          toast.error('cant add')
+        }
+  }
+
+  const userId =User?.id
+
+  console.log(userId);
+
+// useEffect(() => {
+//   fetch(`https://dummyjson.com/carts/user/${userId}`)
+// .then(res => res.json())
+// .then(console.log)
+// },[userId])
+  }
+
+
+
+
+
 
   return (
     <div className="    w-[23rem]  bg-white shadow-md rounded-3xl p-2 mx-1 my-3 ">
@@ -64,7 +115,7 @@ const ProductCard = ({ data, setProducts }) => {
               <TbListDetails />
               Details
             </button>
-            <button className=" flex items-center gap-1 py-1 px-2 bg-gray-500 rounded-full">
+            <button onClick={handleCart} className=" flex items-center gap-1 py-1 px-2 bg-gray-500 rounded-full">
               <FaCartPlus /> Add to cart
             </button>
           </div>

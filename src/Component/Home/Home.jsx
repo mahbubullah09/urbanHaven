@@ -10,12 +10,17 @@ const Home = () => {
    
     const [search, setSearch] = useState("");
     const [product, setProducts] = useState(null)
+    const [User,setUser] = useState();
+
+
 
     useEffect(() => {
 
-        const user = JSON.parse(sessionStorage.getItem('User'))
-        console.log(user);
+       const  user = JSON.parse(sessionStorage.getItem('User'))
+        setUser(user);
     },[])
+
+    console.log(User);
     
 
   const { data = [] } = useQuery({
@@ -32,10 +37,10 @@ const Home = () => {
     setSearch(value);
   };
 
-  console.log(data.products);
+
   const [sort, setSort] = useState("Default");
   const [defaltData, setDefaultData] = useState(data);
-  console.log(defaltData);
+
   const selectDefault = () => {
     setSort("Default");
     selectDefault(data)

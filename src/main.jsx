@@ -7,6 +7,7 @@ import Home from "./Component/Home/Home";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Login from "./Component/Authentication/Login";
 import { Toaster } from "react-hot-toast";
+import PrivateRoute from "./Component/PrivateRoute/PrivateRoute";
 
 const queryClient = new QueryClient()
 
@@ -18,7 +19,9 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <PrivateRoute>
+          <Home />
+        </PrivateRoute>,
       },
     ],
   },
