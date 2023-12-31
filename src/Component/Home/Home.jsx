@@ -80,7 +80,7 @@ const Home = () => {
         <form onSubmit={handleSearch}>
           <input
             id="searchValue"
-            className="bg-[#100f0f] bg-opacity-5 text-sm  py-2 px-3 w-72 md:w-96   my-5 rounded-md"
+            className="bg-[#100f0f] bg-opacity-5 text-sm  py-2 px-3 w-60 md:w-96   my-5 rounded-md border border-white"
             type="text"
             name="search"
             placeholder="  Search by Products Name"
@@ -112,7 +112,7 @@ const Home = () => {
             </ul>
           </div>
         </p>
-   <div className="grid grid-cols-3 gap-8">
+   <div className="grid grid-cols-1 min-[320]:mx-2 max-[325]:mx-4  md:grid-cols-2 lg:grid-cols-3 gap-8">
    {
     // sort === "Default"
     // ? defaltData.map((data, idx) => (

@@ -3,9 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import { TbListDetails } from "react-icons/tb";
 import { FaCartPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
-import Swal from "sweetalert2";
+
 import toast from "react-hot-toast";
 
 const ProductCard = ({ data, setProducts }) => {
@@ -36,23 +34,21 @@ const ProductCard = ({ data, setProducts }) => {
   
     if (!cartItem){
         cartItemArray.push((data))
-        localStorage.setItem('cart', JSON.stringify(cartItemArray))
+        window.localStorage.setItem('cart', JSON.stringify(cartItemArray))
+        window.location.reload();
         toast.success('successfully added')
     }
    
     else{
 
-        const isExist = cartItem.find(item => item.id ===data?.id);
-        
-        if(!isExist){
+       
             cartItemArray.push(...cartItem, data)
-            localStorage.setItem('cart', JSON.stringify(cartItemArray))
+            window.localStorage.setItem('cart', JSON.stringify(cartItemArray))
+            window.location.reload();
            toast.success('successfully added')
 
-        }
-        else{
-          toast.error('cant add')
-        }
+     
+       
   }
 
   const userId =User?.id
@@ -72,7 +68,7 @@ const ProductCard = ({ data, setProducts }) => {
 
 
   return (
-    <div className="    w-[23rem]  bg-white shadow-md rounded-3xl p-2 mx-1 my-3 ">
+    <div className="   w-[23rem]  bg-white shadow-md rounded-3xl p-2 mx-1 my-3 ">
       <div className="overflow-x-hidden rounded-2xl relative">
         <img
           className="h-52 p-2 rounded-2xl w-[23rem] "
