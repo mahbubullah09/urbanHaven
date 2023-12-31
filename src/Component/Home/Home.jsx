@@ -7,6 +7,7 @@ import ProductCard from "../products/ProductCard";
 const Home = () => {
 
     const [search, setSearch] = useState("");
+    const [product, setProducts] = useState(null)
 
   const { data = [] } = useQuery({
     queryKey: ["products", search ? search : ""],
@@ -97,16 +98,40 @@ const Home = () => {
         </p>
    <div className="grid grid-cols-3 gap-8">
    {
-    sort === "Default"
-    ? defaltData.map((data, idx) => (
-        <ProductCard key={idx} data={data} />
-      ))
-      :
+    // sort === "Default"
+    // ? defaltData.map((data, idx) => (
+    //     <ProductCard key={idx} data={data} />
+    //   ))
+    //   :
    
    data?.map((data, idx) => (
-        <ProductCard key={idx} data={data} />
+        <ProductCard key={idx} data={data} setProducts={setProducts} />
       ))}
    </div>
+   
+   <dialog id="my_modal_4" className="modal">
+        <div className="modal-box w-11/12 max-w-2xl">
+          <div className="grid place-content-center">
+            <img src={product?.thumbnail} alt="" />
+          </div>
+          <p className="py-4 text-center text-2xl font-semibold">
+            {product?.title}
+          </p>
+          <p className="text-center">{product?.description}</p>
+          <hr />
+          <p>Brand: {product?.brand}</p>
+          <p>Price: {product?.price}</p>
+          <p>Ratings: {product?.rating}</p>
+          <p>Discount: {product?.discountPercentage}</p>
+          <p>In Stock: {product?.stock}</p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
