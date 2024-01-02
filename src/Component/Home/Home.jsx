@@ -6,18 +6,18 @@ import ProductCard from "../products/ProductCard";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const Home = () => {
-  const [search, setSearch] = useState("");
-  const [product, setProducts] = useState(null);
-  const [User, setUser] = useState();
-  const [show, setShow] = useState(false);
 
+
+  //get user from session storage
+  const [User, setUser] = useState();
   useEffect(() => {
     const user = JSON.parse(sessionStorage.getItem("User"));
     setUser(user);
   }, []);
 
-  console.log(User);
-
+// get product from api
+  const [search, setSearch] = useState("");
+  const [product, setProducts] = useState(null);
   const { data = [] } = useQuery({
     queryKey: ["products", search ? search : ""],
     queryFn: async () => {
@@ -28,18 +28,20 @@ const Home = () => {
     },
   });
 
+  //handle search
   const handleSearch = (e) => {
     e.preventDefault();
     const value = e.target.search.value;
     setSearch(value);
   };
 
-
-
+//show all button toggle
+  const [show, setShow] = useState(false);
   const handleShow = () => {
     setShow(!show);
   };
-  console.log(show);
+
+  //sort product base on price
   const [sortProducts, setSortProducts] = useState(data);
   const [sortPrice, setSortPrice] = useState("Default");
   const handleSortPrice = (e) => {
@@ -154,7 +156,6 @@ const Home = () => {
           <p>In Stock: {product?.stock}</p>
           <div className="modal-action">
             <form method="dialog">
-              {/* if there is a button, it will close the modal */}
               <button className="btn">Close</button>
             </form>
           </div>
