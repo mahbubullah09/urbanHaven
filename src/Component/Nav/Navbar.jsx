@@ -23,6 +23,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     sessionStorage.clear();
+    localStorage.clear();
     window.location.reload();
   };
   const [theme, setTheme] = useState(

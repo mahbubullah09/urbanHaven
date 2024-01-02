@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { data } from "autoprefixer";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import ProductCard from "../products/ProductCard";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
@@ -34,35 +34,7 @@ const Home = () => {
     setSearch(value);
   };
 
-  // const [sort, setSort] = useState("Default");
-  // const [defaltData, setDefaultData] = useState(data);
 
-  // const selectDefault = () => {
-  //   setSort("Default");
-  //   selectDefault(data);
-  // };
-
-  // const selectLow = () => {
-  //   setSort("Low to high");
-
-  //   data.sort((a, b) => {
-  //     let x = parseInt(a.price);
-  //     let y = parseInt(b.price);
-
-  //     return x - y;
-  //   });
-  // };
-
-  // const selectHigh = () => {
-  //   setSort("High to low");
-
-  //   data.sort((a, b) => {
-  //     let x = parseInt(a.price);
-  //     let y = parseInt(b.price);
-
-  //     return y - x;
-  //   });
-  // };
 
   const handleShow = () => {
     setShow(!show);
@@ -148,7 +120,7 @@ const Home = () => {
       </div>
       }
 
-      <div className="mx-auto text-center">
+      <div className="mx-auto text-center mt-8">
         <button
           className="bg-[#0D6EFD] text-white text-sm font-semibold px-4 py-2 rounded-lg"
           onClick={handleShow}

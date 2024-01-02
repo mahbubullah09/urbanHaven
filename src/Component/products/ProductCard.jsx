@@ -3,7 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import { TbListDetails } from "react-icons/tb";
 import { FaCartPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
-
+import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
 const ProductCard = ({ data, setProducts }) => {
@@ -12,6 +12,7 @@ const ProductCard = ({ data, setProducts }) => {
     value: data?.rating,
     edit: false,
     isHalf: true,
+    
   };
 
   const [User,setUser] = useState();
@@ -55,11 +56,7 @@ const ProductCard = ({ data, setProducts }) => {
 
   console.log(userId);
 
-// useEffect(() => {
-//   fetch(`https://dummyjson.com/carts/user/${userId}`)
-// .then(res => res.json())
-// .then(console.log)
-// },[userId])
+
   }
 
 
@@ -68,6 +65,15 @@ const ProductCard = ({ data, setProducts }) => {
 
 
   return (
+    <motion.div
+      className="box"
+      /**
+       * Setting the initial keyframe to "null" will use
+       * the current value to allow for interruptable keyframes.
+       */
+      whileHover={{ scale: [null, 1.2, 1.1] }}
+      transition={{ duration: 0.3 }}
+    >
     <div className="   w-[23rem]  bg-white shadow-md rounded-3xl p-2 mx-1 my-3 ">
       <div className="overflow-x-hidden rounded-2xl relative">
         <img
@@ -78,7 +84,7 @@ const ProductCard = ({ data, setProducts }) => {
       <div className="p-2">
         <div>
           <div className=" ">
-            <span className="bg-lime-200 px-2 py-1 rounded-full text-gray-700">
+            <span className="bg-[#96b9ec]  px-2 py-1 rounded-full text-gray-700 font-medium">
               {" "}
               {data?.category}
             </span>
@@ -106,12 +112,12 @@ const ProductCard = ({ data, setProducts }) => {
             
               }
             }
-              className="flex items-center gap-1 py-1 px-2 bg-gray-500 rounded-full"
+              className="flex items-center gap-1 py-1 px-2 bg-[#2d75e2] text-white rounded-full"
             >
               <TbListDetails />
               Details
             </button>
-            <button onClick={handleCart} className=" flex items-center gap-1 py-1 px-2 bg-gray-500 rounded-full">
+            <button onClick={handleCart} className=" flex items-center gap-1 py-1 px-2 bg-[#2d75e2] text-white rounded-full">
               <FaCartPlus /> Add to cart
             </button>
           </div>
@@ -124,6 +130,7 @@ const ProductCard = ({ data, setProducts }) => {
         </div>
       </div>
     </div>
+    </motion.div>
   );
 };
 
