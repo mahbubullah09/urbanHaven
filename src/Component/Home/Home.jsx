@@ -97,7 +97,7 @@ const Home = () => {
       </p>
       {
         show?
-        <div className="grid grid-cols-1 min-[320]:mx-2 max-[325]:mx-4  md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 min-[320]:mx-2  max-[325]:mx-4  md:grid-cols-2 lg:grid-cols-3 gap-2  place-content-center  ">
         {sortPrice === "Default"
           ? 
           data?.map((data, idx) => (
@@ -109,7 +109,7 @@ const Home = () => {
             ))}
       </div>
       :
-      <div className="grid grid-cols-1 min-[320]:mx-2 max-[325]:mx-4  md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 min-[320]:mx-2 max-[325]:mx-5  md:grid-cols-2 lg:grid-cols-3 gap-2 place-content-center ">
         {sortPrice === "Default"
           ? 
           data?.slice(0, 9).map((data, idx) => (

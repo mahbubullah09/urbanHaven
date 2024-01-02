@@ -55,7 +55,7 @@ const Navbar = () => {
     <div>
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <p className=" text-4xl text-yellow-600 font-bold">
+          <p className="text-2xl md:text-4xl text-yellow-600 font-bold">
             urban<span className="text-cyan-900">Haven</span>
           </p>
         </div>

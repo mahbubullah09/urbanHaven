@@ -50,10 +50,10 @@ const ProductCard = ({ data, setProducts }) => {
     >
 
       {/* start component */}
-      <div className="   w-[23rem]  bg-white shadow-md rounded-3xl p-2 mx-1 my-3 ">
+      <div className="   w-[21rem]  bg-white shadow-md rounded-3xl p-2 mx-1 my-3  ">
         <div className="overflow-x-hidden rounded-2xl relative">
           <img
-            className="h-52 p-2 rounded-2xl w-[23rem] "
+            className="h-52 p-2 rounded-2xl w-[21rem] "
             src={data?.thumbnail}
           />
         </div>
