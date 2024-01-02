@@ -34,42 +34,61 @@ const Home = () => {
     setSearch(value);
   };
 
-  const [sort, setSort] = useState("Default");
-  const [defaltData, setDefaultData] = useState(data);
+  // const [sort, setSort] = useState("Default");
+  // const [defaltData, setDefaultData] = useState(data);
 
-  const selectDefault = () => {
-    setSort("Default");
-    selectDefault(data);
-  };
+  // const selectDefault = () => {
+  //   setSort("Default");
+  //   selectDefault(data);
+  // };
 
-  const selectLow = () => {
-    setSort("Low to high");
+  // const selectLow = () => {
+  //   setSort("Low to high");
 
-    data.sort((a, b) => {
-      let x = parseInt(a.price);
-      let y = parseInt(b.price);
+  //   data.sort((a, b) => {
+  //     let x = parseInt(a.price);
+  //     let y = parseInt(b.price);
 
-      return x - y;
-    });
-  };
+  //     return x - y;
+  //   });
+  // };
 
-  const selectHigh = () => {
-    setSort("High to low");
+  // const selectHigh = () => {
+  //   setSort("High to low");
 
-    data.sort((a, b) => {
-      let x = parseInt(a.price);
-      let y = parseInt(b.price);
+  //   data.sort((a, b) => {
+  //     let x = parseInt(a.price);
+  //     let y = parseInt(b.price);
 
-      return y - x;
-    });
-
-  
-  };
+  //     return y - x;
+  //   });
+  // };
 
   const handleShow = () => {
     setShow(!show);
   };
   console.log(show);
+  const [sortProducts, setSortProducts] = useState(data);
+  const [sortPrice, setSortPrice] = useState("Default");
+  const handleSortPrice = (e) => {
+    const dataCopy = [...data];
+    if (e.target.value === "LH") {
+      setSortPrice("LH");
+      dataCopy.sort((a, b) => {
+        const priceA = parseInt(a.price);
+        const priceB = parseInt(b.price);
+        return priceA - priceB;
+      });
+    } else if (e.target.value === "HL") {
+      setSortPrice("HL");
+      dataCopy.sort((a, b) => {
+        const priceA = parseInt(a.price);
+        const priceB = parseInt(b.price);
+        return priceB - priceA;
+      });
+    }
+    setSortProducts(dataCopy);
+  };
 
   return (
     <div>
@@ -87,59 +106,64 @@ const Home = () => {
           </button>
         </form>
       </div>
-      <p className="flex max-w-[16rem]  justify-evenly items-center mx-4 bg-[#ffcf00] py-2 px-4 rounded-full my-4">
-        <p className="text-xl">Filter By</p>
-        <div className="dropdown ">
-          <label tabIndex={0} className="btn m-1">
-            {sort}
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52"
+      <p className="flex max-w-[16rem]  justify-evenly items-center mx-2 bg-[#ffcf00] py-2 px-4 rounded-full my-4">
+        <p>Filter</p>
+        <div>
+          <select
+            onChange={handleSortPrice}
+            className="select select-warning w-full max-w-xs"
           >
-            <li onClick={selectDefault}>
-              <a>Default</a>
-            </li>
-            <li onClick={selectLow}>
-              <a>Low to high</a>
-            </li>
-            <li onClick={selectHigh}>
-              <a>High to low</a>
-            </li>
-          </ul>
+            <option defaultValue="selected" value="Default">
+              Default
+            </option>
+            <option value="LH">Low to High</option>
+            <option value="HL">High to Low</option>
+          </select>
         </div>
       </p>
-      <div className="grid grid-cols-1 min-[320]:mx-2 max-[325]:mx-4  md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {
-          // sort === "Default"
-          // ? defaltData.map((data, idx) => (
-          //     <ProductCard key={idx} data={data} />
-          //   ))
-          //   :
-
-          !show?
-
-          data?.slice(0,9).map((data, idx) => (
-            <ProductCard key={idx} data={data} setProducts={setProducts} />
-          ))
-          :
+      {
+        show?
+        <div className="grid grid-cols-1 min-[320]:mx-2 max-[325]:mx-4  md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortPrice === "Default"
+          ? 
           data?.map((data, idx) => (
-            <ProductCard key={idx} data={data} setProducts={setProducts} />
-          ))
-        }
+                <ProductCard key={idx} data={data} setProducts={setProducts} />
+              ))
+              
+          : sortProducts?.map((data, idx) => (
+              <ProductCard key={idx} data={data} setProducts={setProducts} />
+            ))}
       </div>
+      :
+      <div className="grid grid-cols-1 min-[320]:mx-2 max-[325]:mx-4  md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortPrice === "Default"
+          ? 
+          data?.slice(0, 9).map((data, idx) => (
+                <ProductCard key={idx} data={data} setProducts={setProducts} />
+              ))
+              
+          : sortProducts?.slice(0, 9).map((data, idx) => (
+              <ProductCard key={idx} data={data} setProducts={setProducts} />
+            ))}
+      </div>
+      }
 
-    <div className="mx-auto text-center">
-    <button className="bg-[#0D6EFD] text-white text-sm font-semibold px-4 py-2 rounded-lg" onClick={handleShow}>
-
-{
-    !show?
-    <p className="flex justify-center gap-1 items-center">Show all <FaChevronDown /></p>
-    :
-    <p className="flex justify-center gap-1 items-center">Show less <FaChevronUp /></p>
-}
-</button>
-    </div>
+      <div className="mx-auto text-center">
+        <button
+          className="bg-[#0D6EFD] text-white text-sm font-semibold px-4 py-2 rounded-lg"
+          onClick={handleShow}
+        >
+          {!show ? (
+            <p className="flex justify-center gap-1 items-center">
+              Show all <FaChevronDown />
+            </p>
+          ) : (
+            <p className="flex justify-center gap-1 items-center">
+              Show less <FaChevronUp />
+            </p>
+          )}
+        </button>
+      </div>
 
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box w-11/12 max-w-2xl">
